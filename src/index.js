@@ -19,11 +19,13 @@ io.on("connection", (socket) => {
   socket.broadcast.emit("message", "A new user has joined!");
 
   socket.on("sendMessage", (message, callback) => {
-    const filter = new Filter();
+    // Code for filtering bad words
 
-    if (filter.isProfane(message)) {
-      return callback("Profanity is not allowed!");
-    }
+    // const filter = new Filter();
+
+    // if (filter.isProfane(message)) {
+    //   return callback("Profanity is not allowed!");
+    // }
 
     io.emit("message", message);
     callback();
@@ -31,7 +33,7 @@ io.on("connection", (socket) => {
 
   socket.on("sendLocation", (coords, callback) => {
     io.emit(
-      "message",
+      "locationMessage",
       `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
     );
     callback();
